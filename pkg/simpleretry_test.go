@@ -14,7 +14,7 @@ var testBackoff = wait.Backoff{
 
 func genericTest(t *testing.T, retryable bool, expectedErr error, expectedRuns int) {
 	execCount := 0
-	err := OnErrorSimple(testBackoff, func() (bool, error) {
+	err := OnError(testBackoff, func() (bool, error) {
 		execCount++
 		return retryable, expectedErr
 	})

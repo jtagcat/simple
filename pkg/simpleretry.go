@@ -18,7 +18,7 @@ func (w wrappedError) Unwrap() error {
 	return w.wrapped
 }
 
-func OnErrorSimple(backoff wait.Backoff, fn func() (bool, error)) error {
+func OnError(backoff wait.Backoff, fn func() (bool, error)) error {
 	err := retry.OnError(backoff, func(err error) bool {
 		return err.(*wrappedError).retryable
 	}, func() error {
