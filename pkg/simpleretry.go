@@ -18,6 +18,8 @@ func (w wrappedError) Unwrap() error {
 	return w.wrapped
 }
 
+// OnError uses a bool in the executing function fn to determine if the error is retryable.
+// (instead of a second function, as k8s.retry does)
 func OnError(backoff wait.Backoff, fn func() (bool, error)) error {
 	err := retry.OnError(backoff, func(err error) bool {
 		return err.(*wrappedError).retryable
