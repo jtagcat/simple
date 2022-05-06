@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	simple "github.com/jtagcat/simpleretry/pkg"
+	simple "github.com/jtagcat/simple/v2/pkg"
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/sync/errgroup"
 )
