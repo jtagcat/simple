@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 	"testing"
 	"time"
@@ -40,6 +41,7 @@ func TestParallel(t *testing.T) {
 		}
 		return scanner.Err()
 	})
-	assert.Equal(t, []string{"hello one", "hello two", "hello three", "hello four"}, output)
+	sort.Strings(output)
+	assert.Equal(t, []string{"hello four", "hello one", "hello three", "hello two"}, output)
 	assert.ErrorContains(t, err, errBoo.Error())
 }
