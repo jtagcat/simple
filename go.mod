@@ -1,4 +1,4 @@
-module github.com/jtagcat/simpleretry
+module github.com/jtagcat/simple
 
 go 1.18
 
