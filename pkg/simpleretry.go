@@ -1,4 +1,4 @@
-package simpleretry
+package simple
 
 import (
 	"k8s.io/apimachinery/pkg/util/wait"
@@ -14,13 +14,14 @@ type wrappedError struct {
 func (w wrappedError) Error() string {
 	return w.wrapped.Error()
 }
+
 func (w wrappedError) Unwrap() error {
 	return w.wrapped
 }
 
-// OnError uses a bool in the executing function fn to determine if the error is retryable.
+// RetryOnError uses a bool in the executing function fn to determine if the error is retryable.
 // (instead of a second function, as k8s.retry does)
-func OnError(backoff wait.Backoff, fn func() (bool, error)) error {
+func RetryOnError(backoff wait.Backoff, fn func() (bool, error)) error {
 	err := retry.OnError(backoff, func(err error) bool {
 		return err.(*wrappedError).retryable
 	}, func() error {

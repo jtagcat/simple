@@ -1,4 +1,4 @@
-package simpleretry
+package simple
 
 import (
 	"fmt"
@@ -14,7 +14,7 @@ var testBackoff = wait.Backoff{
 
 func genericTest(t *testing.T, retryable bool, expectedErr error, expectedRuns int) {
 	execCount := 0
-	err := OnError(testBackoff, func() (bool, error) {
+	err := RetryOnError(testBackoff, func() (bool, error) {
 		execCount++
 		return retryable, expectedErr
 	})
@@ -45,6 +45,7 @@ func genericAll(t *testing.T, retryable bool) {
 func TestRetryable(t *testing.T) {
 	genericAll(t, true)
 }
+
 func TestFatal(t *testing.T) {
 	genericAll(t, false)
 }
